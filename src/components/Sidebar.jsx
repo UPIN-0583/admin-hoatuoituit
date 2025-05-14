@@ -18,6 +18,7 @@ const Sidebar = () => {
         <Link to="/orders" className="hover:bg-gray-700 p-2 rounded">🛒 Đơn hàng</Link>
         <Link to="/reviews" className="hover:bg-gray-700 p-2 rounded">📝 Bình luận</Link>
         <Link to="/statistics" className="hover:bg-gray-700 p-2 rounded">📊 Thống kê</Link>
+        <Link to="/blog" className="hover:bg-gray-700 p-2 rounded">📝 Blog</Link>
       </nav>
     </div>
   );
