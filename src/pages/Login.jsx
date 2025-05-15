@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import { jwtDecode } from "jwt-decode";
 
 
@@ -11,7 +11,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/api/customers/login", {
+      const res = await api.post("/api/customers/login", {
         email,
         password,
       });
