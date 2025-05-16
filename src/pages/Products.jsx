@@ -85,7 +85,7 @@ const Products = () => {
                   )}
                 </td>
                 <td className="p-3">
-                  {p.imageUrl && <img src={`http://localhost:8080${p.imageUrl}`} alt={p.name} className="w-12 h-12 object-cover" />}
+                  {p.imageUrl && <img src={`https://backendhoatuoiuit.onrender.com${p.imageUrl}`} alt={p.name} className="w-12 h-12 object-cover" />}
                 </td>
                 <td className="p-3 space-x-2">
                   <button

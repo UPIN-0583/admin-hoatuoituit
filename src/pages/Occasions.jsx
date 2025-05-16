@@ -78,7 +78,7 @@ const Occasions = () => {
                 <td className="p-3">
                   {o.imageUrl && (
                     <img
-                      src={`http://localhost:8080${o.imageUrl}`}
+                      src={`https://backendhoatuoiuit.onrender.com${o.imageUrl}`}
                       alt={o.name}
                       className="w-12 h-12 object-cover rounded"
                     />
