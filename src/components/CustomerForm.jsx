@@ -29,8 +29,8 @@ const CustomerForm = ({ onSubmit, initialData = null, onCancel, isEditing }) => 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = isEditing
-      ? { name, email, phone, address, isActive } // Không gửi password khi chỉnh sửa
-      : { name, email, phone, address, password, isActive }; // Gửi password khi thêm
+      ? { name, email, phone, address, isActive } // chỉnh sửa
+      : { email, password }; // đăng ký chỉ cần email + password
     await onSubmit(payload);
   };
 
@@ -39,14 +39,7 @@ const CustomerForm = ({ onSubmit, initialData = null, onCancel, isEditing }) => 
       <h2 className="text-lg font-semibold">
         {isEditing ? "Cập nhật khách hàng" : "Thêm khách hàng"}
       </h2>
-      <input
-        type="text"
-        placeholder="Tên khách hàng"
-        className="border p-2 w-full"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
+
       <input
         type="email"
         placeholder="Email"
@@ -55,19 +48,7 @@ const CustomerForm = ({ onSubmit, initialData = null, onCancel, isEditing }) => 
         onChange={(e) => setEmail(e.target.value)}
         required
       />
-      <input
-        type="text"
-        placeholder="Số điện thoại"
-        className="border p-2 w-full"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
-      <textarea
-        placeholder="Địa chỉ"
-        className="border p-2 w-full"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
-      />
+
       {!isEditing && (
         <input
           type="password"
@@ -78,18 +59,44 @@ const CustomerForm = ({ onSubmit, initialData = null, onCancel, isEditing }) => 
           required
         />
       )}
-      <div className="flex items-center space-x-2">
-        <label>Trạng thái:</label>
-        <input
-          type="checkbox"
-          checked={isActive}
-          onChange={(e) => setIsActive(e.target.checked)}
-        />
-        <span>{isActive ? "Hiển thị" : "Ẩn"}</span>
-      </div>
+
+      {isEditing && (
+        <>
+          <input
+            type="text"
+            placeholder="Tên khách hàng"
+            className="border p-2 w-full"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Số điện thoại"
+            className="border p-2 w-full"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <textarea
+            placeholder="Địa chỉ"
+            className="border p-2 w-full"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <div className="flex items-center space-x-2">
+            <label>Trạng thái:</label>
+            <input
+              type="checkbox"
+              checked={isActive}
+              onChange={(e) => setIsActive(e.target.checked)}
+            />
+            <span>{isActive ? "Hiển thị" : "Ẩn"}</span>
+          </div>
+        </>
+      )}
+
       <div className="space-x-2">
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-          {isEditing ? "Lưu" : "Thêm"}
+          {isEditing ? "Lưu" : "Đăng ký"}
         </button>
         {isEditing && (
           <button
