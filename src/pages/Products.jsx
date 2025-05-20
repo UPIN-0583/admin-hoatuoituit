@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
-
+import { BASE_URL } from "../services/api";
 import ProductForm from "../components/ProductForm";
 import ProductFilter from "../components/ProductFilter";
 import AssignOccasionsModal from "../components/AssignOccasionsModal";
@@ -85,7 +85,7 @@ const Products = () => {
                   )}
                 </td>
                 <td className="p-3">
-                  {p.imageUrl && <img src={`http://localhost:8080${p.imageUrl}`} alt={p.name} className="w-12 h-12 object-cover" />}
+                  {p.imageUrl && <img src={`${BASE_URL}${p.imageUrl}`} alt={p.name} className="w-12 h-12 object-cover" />}
                 </td>
                 <td className="p-3 space-x-2">
                   <button
