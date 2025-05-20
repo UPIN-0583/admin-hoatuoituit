@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
+import { BASE_URL } from "../services/api";
 import OccasionForm from "../components/OccasionForm";
 
 const Occasions = () => {
@@ -78,7 +79,7 @@ const Occasions = () => {
                 <td className="p-3">
                   {o.imageUrl && (
                     <img
-                      src={`https://backendhoatuoiuit.onrender.com${o.imageUrl}`}
+                      src={`${BASE_URL}${o.imageUrl}`}
                       alt={o.name}
                       className="w-12 h-12 object-cover rounded"
                     />
