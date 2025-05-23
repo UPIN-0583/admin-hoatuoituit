@@ -50,6 +50,10 @@ export default function TiptapMenuBar({ editor }) {
       {button("H1", () => editor.chain().focus().toggleHeading({ level: 1 }).run(), editor.isActive("heading", { level: 1 }))}
       {button("H2", () => editor.chain().focus().toggleHeading({ level: 2 }).run(), editor.isActive("heading", { level: 2 }))}
       {button("• List", () => editor.chain().focus().toggleBulletList().run(), editor.isActive("bulletList"))}
+      {button("L", () => editor.chain().focus().setTextAlign("left").run(), editor.isActive({ textAlign: 'left' }))}
+      {button("C", () => editor.chain().focus().setTextAlign("center").run(), editor.isActive({ textAlign: 'center' }))}
+      {button("R", () => editor.chain().focus().setTextAlign("right").run(), editor.isActive({ textAlign: 'right' }))}
+
 
       <button
         type="button"
