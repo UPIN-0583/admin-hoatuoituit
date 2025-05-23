@@ -9,6 +9,7 @@ export default function BlogForm({ onSuccess, initialData = null, onCancel }) {
   const [author, setAuthor] = useState("Admin");
   const [isActive, setIsActive] = useState(true);
   const [file, setFile] = useState(null);
+  const [tags, setTags] = useState("");
   const [resetKey, setResetKey] = useState(0); // Dùng để reset editor nếu cần
 
   // ✅ Khi initialData thay đổi (sửa hoặc tạo mới)
@@ -130,6 +131,17 @@ export default function BlogForm({ onSuccess, initialData = null, onCancel }) {
             className="h-24 mt-2 border rounded"
           />
         )}
+      </div>
+
+      <div>
+        <label className="block font-medium">Tags (ngăn cách bằng dấu phẩy)</label>
+        <input
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          className="w-full border p-2 rounded"
+          placeholder="Ví dụ: Cám ơn, Sinh nhật, Tình yêu"
+        />
       </div>
 
       <div className="flex items-center space-x-2">
