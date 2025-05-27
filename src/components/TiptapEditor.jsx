@@ -7,17 +7,23 @@ import Heading from "@tiptap/extension-heading";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import TiptapMenuBar from "./TiptapMenuBar";
+import TextAlign from "@tiptap/extension-text-align";
 
 export default function TiptapEditor({ content, setContent }) {
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Image,
-      Underline,
-      Heading.configure({ levels: [1, 2] }),
-      BulletList,
-      OrderedList,
-    ],
+   extensions: [
+    StarterKit.configure({
+      heading: { levels: [1, 2] },
+    }),
+    Image,
+    Underline,
+    Heading.configure({ levels: [1, 2] }),
+    BulletList,
+    OrderedList,
+    TextAlign.configure({
+      types: ["heading", "paragraph"], // hỗ trợ căn lề cho đoạn và tiêu đề
+    }),
+  ],
     content,
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
