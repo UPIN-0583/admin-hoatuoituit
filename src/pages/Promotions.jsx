@@ -8,6 +8,7 @@ const Promotions = () => {
   const [editingId, setEditingId] = useState(null);
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [selectedPromotionId, setSelectedPromotionId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const loadPromotions = async () => {
     const res = await api.get("/api/promotions");
@@ -17,6 +18,10 @@ const Promotions = () => {
   useEffect(() => {
     loadPromotions();
   }, []);
+
+  const filteredPromotions = promotions.filter(promo =>
+    promo.code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleSubmitSuccess = () => {
     setEditingId(null);
@@ -56,7 +61,16 @@ const Promotions = () => {
         onCreated={handleAfterCreated}
       />
 
-      
+      {/* Ô tìm kiếm */}
+      <div className="my-4"> 
+        <input
+          type="text"
+          placeholder="Tìm kiếm khuyến mãi theo mã..."
+          className="p-4 border rounded w-full"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
 
       <div className="bg-white shadow rounded overflow-x-auto">
         <table className="w-full table-auto">
@@ -72,7 +86,7 @@ const Promotions = () => {
             </tr>
           </thead>
           <tbody>
-            {promotions.map((p) => (
+            {filteredPromotions.map((p) => (
               <tr key={p.id} className="border-t">
                 <td className="p-3">{p.id}</td>
                 <td className="p-3">{p.code}</td>

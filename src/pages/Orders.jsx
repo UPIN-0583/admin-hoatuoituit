@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(null);
 
   const loadOrders = async () => {
     const res = await api.get("/api/orders");
@@ -14,6 +16,15 @@ const Orders = () => {
   useEffect(() => {
     loadOrders();
   }, []);
+
+  const filteredOrders = orders
+    .filter(order =>
+      order.id.toString().includes(searchTerm) ||
+      (order.customerName || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (order.paymentMethodName || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.status.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+
 
   const updateStatus = async (orderId, status) => {
     try {
@@ -27,6 +38,23 @@ const Orders = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Quản lý đơn hàng</h1>
+
+      <div className="flex justify-between items-center mb-4">
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo ID, khách hàng, phương thức thanh toán..."
+          className="p-2 border rounded w-full max-w-md"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Link
+          to="/createorder"
+          className="bg-green-500 text-white px-4 py-2 rounded"
+          onClick={() => setError(null)}
+        >
+          Tạo đơn hàng mới
+        </Link> 
+      </div>
 
       <div className="bg-white shadow rounded overflow-x-auto">
         <table className="w-full table-auto text-left">
@@ -42,7 +70,8 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((o) => (
+            
+            {filteredOrders.map(o => (
               <tr key={o.id} className="border-t text-sm">
                 <td className="p-3">{o.id}</td>
                 <td className="p-3">{new Date(o.orderDate).toLocaleString("vi-VN")}</td>

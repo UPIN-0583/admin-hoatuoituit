@@ -5,6 +5,7 @@ import FlowerForm from "../components/FlowerForm";
 const Flowers = () => {
   const [flowers, setFlowers] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const loadFlowers = async () => {
     const res = await api.get("/api/flowers");
@@ -14,6 +15,10 @@ const Flowers = () => {
   useEffect(() => {
     loadFlowers();
   }, []);
+
+  const filteredFlowers = flowers.filter(flower =>
+      flower.name.toLowerCase().includes(searchTerm.toLowerCase())  
+  );
 
   const handleSubmit = async (payload) => {
     try {
@@ -55,6 +60,16 @@ const Flowers = () => {
         onCancel={() => setEditingId(null)}
       />
 
+      <div className="my-4">
+        <input
+          type="text"
+          placeholder="Tìm kiếm hoa theo tên..."
+          className="p-4 border rounded w-full"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <div className="bg-white shadow rounded overflow-x-auto">
         <table className="w-full table-auto text-left">
           <thead className="bg-gray-100">
@@ -67,7 +82,7 @@ const Flowers = () => {
             </tr>
           </thead>
           <tbody>
-            {flowers.map((f) => (
+            {filteredFlowers.map((f) => (
               <tr key={f.id} className="border-t">
                 <td className="p-3">{f.id}</td>
                 <td className="p-3">{f.name}</td>

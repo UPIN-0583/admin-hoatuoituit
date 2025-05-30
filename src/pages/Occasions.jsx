@@ -6,6 +6,7 @@ import OccasionForm from "../components/OccasionForm";
 const Occasions = () => {
   const [occasions, setOccasions] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");  
 
   const loadOccasions = async () => {
     const res = await api.get("/api/occasions");
@@ -15,6 +16,10 @@ const Occasions = () => {
   useEffect(() => {
     loadOccasions();
   }, []);
+
+  const filteredOccasions = occasions.filter(occasion =>
+    occasion.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleFormSubmit = async (payload) => {
     try {
@@ -58,6 +63,16 @@ const Occasions = () => {
         onCancel={() => setEditingId(null)}
       />
 
+      <div className="my-4">
+        <input
+          type="text"
+          placeholder="Tìm kiếm dịp tặng hoa theo tên..."
+          className="p-4 border rounded w-full"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <div className="bg-white rounded shadow overflow-x-auto">
         <table className="w-full table-auto">
           <thead>
@@ -71,7 +86,7 @@ const Occasions = () => {
             </tr>
           </thead>
           <tbody>
-            {occasions.map((o) => (
+            {filteredOccasions.map((o) => (
               <tr key={o.id} className="border-t">
                 <td className="p-3">{o.id}</td>
                 <td className="p-3">{o.name}</td>

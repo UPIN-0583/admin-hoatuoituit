@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import Unauthorized from "./pages/Unauthorized";
 import Statistics from "./pages/Statistics";
 import BlogManager from "./pages/BlogManager";
+import CreateOrder from "./pages/CreateOrder";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/reviews" element={<Layout><Comments /></Layout>} />
         <Route path="/statistics" element={<Layout><Statistics /></Layout>} />
         <Route path="/blog" element={<Layout><BlogManager /></Layout>} />
+        <Route path="/createorder" element={<Layout><CreateOrder /></Layout>} />
       </Routes>
     </Router>
   );

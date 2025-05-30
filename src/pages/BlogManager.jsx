@@ -7,6 +7,7 @@ export default function AdminBlogManager() {
   const [posts, setPosts] = useState([]);
   const [editingPost, setEditingPost] = useState(null);
   const [previewPost, setPreviewPost] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchPosts = async () => {
     try {
@@ -28,6 +29,15 @@ export default function AdminBlogManager() {
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  }
+
+  const filteredPosts = posts.filter(post =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.author.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -44,7 +54,15 @@ export default function AdminBlogManager() {
         initialData={editingPost}
         onCancel={() => setEditingPost(null)}
       />
-
+      <div className="my-4">
+        <input
+          type="text"
+          placeholder="Tìm kiếm bài viết theo tiêu đề hoặc tác giả..."  
+          className="p-4 border rounded w-full"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </div>
 
       <div className="bg-white shadow rounded mt-6">
         <table className="table-auto w-full">
@@ -58,7 +76,7 @@ export default function AdminBlogManager() {
             </tr>
           </thead>
           <tbody>
-            {posts.map((post) => (
+            {filteredPosts.map((post) => (
               <tr key={post.id} className="border-t hover:bg-gray-50">
                 <td className="p-3">{post.id}</td>
                 <td
